@@ -1,5 +1,6 @@
 # Escratsou
-*(Updated for escratsou version 24.7.25, Minecraft version 1.21.8)*
+> [!NOTE]
+> This is upadeted for escratsou version 24.7.25 and Minecraft version 1.21.8)
 ## About
 **Escratsou** is a *Python* tool for making **Minecraft Datapacks** and **Minecraft Resourcepacks**
 ## Datapacks
@@ -13,3 +14,4 @@ my_datapack = datapack.Base('My Datapack', 'my_datapack', 81, 'This is a example
 ```
 ## Notice
 Mojang is not affiliated with this project
+

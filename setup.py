@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
 	name='escratsou',
 	packages=find_packages(include=['escratsou']),
-	version='24.7.25',
+	version='25.7.25',
 	description='Helps with datapack creation for Minecraft',
 	author='artitapheiont',
 	license='MIT',
