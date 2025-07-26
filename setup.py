@@ -1,9 +1,11 @@
 from setuptools import find_packages, setup
+import datetime
+date = str(datetime.datetime.now().date()).split('-')
 
 setup(
 	name='escratsou',
 	packages=find_packages(include=['escratsou']),
-	version='25.7.25',
+	version=date[2] + '.' + str(int(date[1])) + '.' + date[0][2] + date[0][3],
 	description='Creates datapacks and resourcepacks for Minecraft',
 	url='https://github.com/artelephantb/escratsou',
 	author='artitapheiont',

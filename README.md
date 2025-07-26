@@ -5,10 +5,10 @@
 ## About
 **Escratsou** is a *Python* tool for making **Minecraft Datapacks** and **Minecraft Resourcepacks**
 
+## Datapacks
 > [!TIP]
 > Using '&namespace&' will use the defined namespace.
 
-## Datapacks
 To start, we can import the *datapack* tool from **escratsou**.
 ```python
 from escratsou.datapack import create
