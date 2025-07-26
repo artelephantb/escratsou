@@ -2,31 +2,8 @@ import json
 import os
 import shutil
 
-# Create directory if it does not exist
-def combineDirectories(directory: str, path: str):
-	if not os.path.exists(os.path.join(directory, path)): os.makedirs(os.path.join(directory, path))
-
-# Create file if it does not exist
-def combineFiles(directory: str, path: str, contents: str):
-	if not os.path.isfile(os.path.join(directory, path)):
-		with open(os.path.join(directory, path), 'x') as file:
-			file.write(contents)
-
-# Update JSON file
-def updateJSON(path: str, update: str, content: str):
-	if not os.path.isfile(path):
-		raise FileNotFoundError('No file at ' + path)
-
-	with open(path, 'r') as file:
-		original = json.load(file)
-
-	if not update in original:
-		raise NameError('Invalid JSON file')
-	original[update] += content
-	moddified = json.dumps(original)
-
-	with open(path, 'w') as file:
-		file.write(moddified)
+# Import tools
+import file_tools
 
 # Base datapack
 class Base:
@@ -73,41 +50,41 @@ class Base:
 				shutil.rmtree(os.path.join(directory, self.name))
 
 		# Create folders
-		combineDirectories(directory, self.name + '/data/' + self.namespace)
+		file_tools.combineDirectories(directory, self.name + '/data/' + self.namespace)
 		if len(self.loads) > 0 or len(self.ticks) > 0:
-			combineDirectories(directory, self.name + '/data/minecraft/tags/function')
+			file_tools.combineDirectories(directory, self.name + '/data/minecraft/tags/function')
 		if len(self.functions) > 0:
-			combineDirectories(directory, self.name + '/data/' + self.namespace + '/function')
+			file_tools.combineDirectories(directory, self.name + '/data/' + self.namespace + '/function')
 		if len(self.advancements) > 0:
-			combineDirectories(directory, self.name + '/data/' + self.namespace + '/advancement')
+			file_tools.combineDirectories(directory, self.name + '/data/' + self.namespace + '/advancement')
 
 		# Output pack settings
-		combineFiles(directory, self.name + '/pack.mcmeta', str(json.dumps({'pack':{'description': self.description, 'pack_format': self.version}}, indent='	')).replace('\'', '"'))
+		file_tools.combineFiles(directory, self.name + '/pack.mcmeta', str(json.dumps({'pack':{'description': self.description, 'pack_format': self.version}}, indent='	')).replace('\'', '"'))
 
 		# Output loads
 		if len(self.loads) > 0:
 			full = {'values':[]}
 			for load in self.loads:
 				full['values'] += [load]
-			combineFiles(directory, self.name + '/data/minecraft/tags/function/load.json', str(json.dumps(full, indent='	')).replace('\'', '"'))
+			file_tools.combineFiles(directory, self.name + '/data/minecraft/tags/function/load.json', str(json.dumps(full, indent='	')).replace('\'', '"'))
 
 		# Output ticks
 		if len(self.ticks) > 0:
 			full = {"values":[]}
 			for tick in self.ticks:
 				full['values'] += [tick]
-			combineFiles(directory, self.name + '/data/minecraft/tags/function/tick.json', str(json.dumps(full, indent='	')).replace('\'', '"'))
+			file_tools.combineFiles(directory, self.name + '/data/minecraft/tags/function/tick.json', str(json.dumps(full, indent='	')).replace('\'', '"'))
 
 		# Output functions
 		for function in self.functions:
 			directory_full = self.name + '/data/' + self.namespace + '/function/' + function[2]
-			combineDirectories(directory, directory_full)
-			combineFiles(directory, os.path.join(directory_full, function[0]) + '.mcfunction', function[1])
+			file_tools.combineDirectories(directory, directory_full)
+			file_tools.combineFiles(directory, os.path.join(directory_full, function[0]) + '.mcfunction', function[1])
 
 		# Output advancements
 		for advancement in self.advancements:
 			directory_full = self.name + '/data/' + self.namespace + '/advancement/' + advancement[2]
-			combineFiles(directory, os.path.join(directory_full, advancement[0]) + '.json', advancement[1])
+			file_tools.combineFiles(directory, os.path.join(directory_full, advancement[0]) + '.json', advancement[1])
 
 # Simple datapack
 class Projectile(Base):

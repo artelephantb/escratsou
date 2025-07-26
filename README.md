@@ -1,6 +1,6 @@
 # Escratsou
 > [!NOTE]
-> This is upadeted for escratsou version 24.7.25 and Minecraft version 1.21.8
+> This is upadeted for escratsou version 26.7.25 and Minecraft version 1.21.8
 
 ## About
 **Escratsou** is a *Python* tool for making **Minecraft Datapacks** and **Minecraft Resourcepacks**
@@ -31,6 +31,13 @@ A function can be defined with `Function()`. Requires a name and the contents.
 ```python
 # Create a function
 my_datapack.Function('tell_a_story', 'say I will tell you a story!')
+```
+
+Create a advancement with `Advancement()`, using a **name** and **string**.
+```python
+# Open a file for the advancement
+with open('my_advancement.json', 'r') as file:
+	my_datapack.Advancement('my_advancement', file.read())
 ```
 
 ## Notice
