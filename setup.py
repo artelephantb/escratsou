@@ -5,7 +5,7 @@ date = str(datetime.datetime.now().date()).split('-')
 setup(
 	name='escratsou',
 	packages=find_packages(include=['escratsou']),
-	version=date[2] + '.' + str(int(date[1])) + '.' + date[0][2] + date[0][3],
+	version=str(int(date[2])) + '.' + str(int(date[1])) + '.' + str(int(date[0][2] + date[0][3])),
 	description='Creates datapacks and resourcepacks for Minecraft',
 	url='https://github.com/artelephantb/escratsou',
 	author='artitapheiont',
