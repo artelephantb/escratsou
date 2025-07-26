@@ -3,7 +3,7 @@ import os
 import shutil
 
 # Import tools
-import file_tools
+from .. import file_tools
 
 # Base datapack
 class Base:
@@ -102,3 +102,16 @@ class Projectile(Base):
 
 		# Add projectile tick
 		self.Tick(self.namespace + ':projectiles/' + name + '.tick')
+
+	def export(self, directory, replace=False, combine=False):
+		super().export(directory, replace, combine)
+
+		if len(self.projectiles) > 0:
+			full = ''
+			self.Tick(self.namespace + ':projectiles/tick')
+
+			for projectile in self.projectiles:
+				full += 'execute as @e[tag=projectile, tag=' + self.namespace + ', tag=' + projectile[0] + '] at @s run return run function ' + self.namespace + ':projectiles/' + projectile[0] + '.tick\n'
+		
+			file_tools.combineFiles(directory, self.name + '/data/' + self.namespace + '/function/projectiles/tick.mcfunction', full)
+ # FINISH ADDING PROJECTILE FILE EXPORT

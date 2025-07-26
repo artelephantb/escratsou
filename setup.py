@@ -11,6 +11,7 @@ setup(
 	author='artitapheiont',
 	license='MIT',
 	install_requires=[],
+	package_data={ 'escratsou': ['datapack/*'] },
 	setup_requires=['pytest-runner'],
 	tests_require=['pytest'],
 	test_suite='tests'
