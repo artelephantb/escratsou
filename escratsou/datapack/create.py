@@ -114,4 +114,3 @@ class Projectile(Base):
 				full += 'execute as @e[tag=projectile, tag=' + self.namespace + ', tag=' + projectile[0] + '] at @s run return run function ' + self.namespace + ':projectiles/' + projectile[0] + '.tick\n'
 		
 			file_tools.combineFiles(directory, self.name + '/data/' + self.namespace + '/function/projectiles/tick.mcfunction', full)
- # FINISH ADDING PROJECTILE FILE EXPORT
