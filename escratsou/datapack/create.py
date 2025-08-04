@@ -7,6 +7,7 @@ from .. import file_tools
 
 # Base datapack
 class Base:
+	'''Vanilla datapack content'''
 	# Setup
 	def __init__(self, name: str, namespace: str, version: int, description: str):
 		self.name = name
@@ -22,25 +23,30 @@ class Base:
 
 	# Add load (on load)
 	def Load(self, contents: str):
+		'''Adds load attributes to datapacks for when world loads or reloads server-side'''
 		if '\n' in contents:
 			raise ValueError('One line only')
 		self.loads += [contents.replace('&namespace&', self.namespace)]
 
 	# Add tick (every tick)
 	def Tick(self, contents: str):
+		'''Adds tick attributes to datapacks for every tick'''
 		if '\n' in contents:
 			raise ValueError('One line only')
 		self.ticks += [contents.replace('&namespace&', self.namespace)]
 
 	# Add function (when called)
 	def Function(self, name: str, contents: str, sub_dir=''):
+		'''Adds function attributes to datapacks for when code is called'''
 		self.functions += [[name, contents.replace('&namespace&', self.namespace), sub_dir]]
 	
 	# Add advancement (with conditions)
 	def Advancement(self, name: str, contents: str, sub_dir=''):
+		'''Adds advancement attributes to datapacks for when action proceeds'''
 		self.advancements += [[name, contents.replace('&namespace&', self.namespace), sub_dir]]
 
 	def export(self, directory, replace=False, combine=False):
+		'''Generates datapack using defined attributes'''
 		# Check if datapack exsists
 		if os.path.exists(os.path.join(directory, self.name)):
 			if replace == False:
@@ -88,12 +94,14 @@ class Base:
 
 # Simple datapack
 class Projectile(Base):
+	'''Projectile datapack content'''
 	def __init__(self, name: str, namespace: str, version: int, description: str):
 		super().__init__(name, namespace, version, description)
 		self.projectiles = []
 	
 	# Add projectile (when called)
 	def Projectile(self, name: str, item: dict, speed: float, particle: dict):
+		'''Adds projectile, function, and tick attributes to datapacks for projectiles'''
 		self.projectiles += [[name, item, speed, particle]]
 
 		# Add projectile functions
@@ -104,6 +112,7 @@ class Projectile(Base):
 		self.Tick(self.namespace + ':projectiles/' + name + '.tick')
 
 	def export(self, directory, replace=False, combine=False):
+		'''Generates datapack using defined attributes including projectiles'''
 		super().export(directory, replace, combine)
 
 		if len(self.projectiles) > 0:

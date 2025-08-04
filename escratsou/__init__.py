@@ -1,4 +1,5 @@
 def license():
+	'''Returns license of escratsou'''
 	return '''MIT License
 
 Copyright (c) 2025 Artitapheiont
